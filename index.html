@@ -1,105 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
- <!-- <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" /> -->
- <!-- just add or operator and add font name within given double quote -->
+ <script src="https://cdn.tailwindcss.com"></script> 
+ <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Lora|Space Grotesk|Poppins|Karla|Fredoka">
-    <title>Input</title>
-        <style>
-            html, body{
-                height: 100%;
-                width: 100%;
-                font-family: 'Fredoka';
-                
-            }
-            .card{
-                position: absolute;
-                height: 250px;
-                width: 400px;
-                background-color: red;
-                top: 30%;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            #color, #hexcode {
-                display: none;
-            }
-        </style>
- 
+    <title>Document</title>
+    <style>
+        html, body{
+            height: 100%;
+            width: 100%;
+            font-family: 'Fredoka';
+        }
+        .card{
+            position: absolute;
+            height: 250px;
+            width: 400px;
+            background-color: red;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+    </style>
 </head>
-
-<body class="bg-black  text-white">
+<body class="bg-black">
     <div class="card rounded-lg bg-gray-800">
-        <div class="container flex h-[100%] w-[100%] items-center justify-center flex-col relative">
-            <!-- selection for color  -->
-            <div>
-                <label class="mr-[15px] text-[20px] font-semibold" for="colorType">Select Color Type.</label>
-                <select name="colortype" id="colorType" class="bg-black text-[20px] rounded font-semibold text-blue-600 outline-none"> 
-                    <option class="font-semibold bg-blue-600 text-white" value="" disabled selected>Select...</option>
-                    <option class="font-semibold bg-blue-600 text-white" value="color">color name</option>
-                    <option class="font-semibold bg-blue-600 text-white" value="hexcode">Hex Code</option>
-                </select>
+        <div class="container flex h-[100%] w-[100%] items-center justify-center flex-col">
+            <h1 class="text-[28px] font-bold text-white">Choose Your Fav Color.</h1>
+            <div class="mt-[20px]">
+                <button id="start" class="px-[10px] py-[4px] bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 mr-[30px]">Click to Generate</button>
+                <button id="stop" class="px-[10px] py-[4px] bg-blue-600 rounded-lg font-semibold text-white hover:bg-blue-700 mr-[30px]">Stop</button>
             </div>
-            <!-- choosing color name  -->
-            <div id="color" class="mt-[30px]">
-                <label class="mr-[10px] text-[20px] font-semibold text-left" for="colorName">Which Color you have?</label>
-                <select name="colorName" id="colorName" class="outline-none text-[20px] bg-black text-blue-600">
-                    <option value="" disabled selected >Select Color...</option>
-                    <option class="font-semibold" value="black">black</option>
-                    <option class="font-semibold" value="White">White</option>
-                    <option class="font-semibold" value="Red">Red</option>
-                    <option class="font-semibold" value="Blue">Blue</option>
-                    <option class="font-semibold" value="Green">Green</option>
-                    <option class="font-semibold" value="Yellow">Yellow</option>
-                    <option class="font-semibold" value="Gray">Gray</option>
-                    <option class="font-semibold" value="Brown">Brown</option>
-                    <option class="font-semibold" value="Purple">Purple</option>
-                    <option class="font-semibold" value="Orange">Orange</option>
-                </select>
+            <div class="mt-[30px]">
+                <input id="colorInput" class="font-semibold w-[120px] mr-[10px] text-center rounded-lg h-[35px] bg-gray-600 text-white outline-none" type="text" value="" placeholder="Hex Color">
+                <button id="copy" class="px-[10px] py-[4px] bg-yellow-500 rounded-lg font-semibold text-black hover:bg-yellow-600 mr-[30px]"><i class="ri-file-copy-line"></i></button>
             </div>
-            <!-- inputing hex code  -->
-            <div id="hexcode" class="mt-[30px] text-center">
-                <label class="text-[20px] font-semibold"  for="hexcode">Which hex code have in your mind?</label><br>
-                <input id="hexInput" class="outline-none w-[100px] mt-[26px] mr-[15px] rounded-lg h-[30px] bg-black text-center" maxlength="7" type="text">
-                <button id="hexButton" class="font-semibold px-[10px] py-[4px] bg-blue-600 hover:bg-yellow-500 hover:text-black transition-all duration-[0.5s] rounded-xl text-white">Submit</button>
-            </div>
-            <hr class="w-[100%] absolute bottom-0 mb-[23px]">
-            <button class="absolute bottom-0 right-0 mr-[13px] text-[10px]"><a href="practice2.html">Go to Home</a></button>
+           <hr class="w-[100%] mt-[18px] border-gray-500">
+           <p class="text-gray-400 mt-[13px]">Do you know others colors? <a class="text-green-500" href="help.html"> click to experiment</a></p>
         </div>
     </div>
     <script>
-        document.querySelector('#colorType').addEventListener('change', function(){
-            let val = this.value;
-            if(val === 'color'){
-                document.querySelector('#color').style.display = "block";
-                document.querySelector('#hexcode').style.display = "none";
+        let intervalId; // 
+        // function for generate random color
+        function randomColor(){
+          const hex = '0123456789ABCDEF';
+          let color = '#';
+          for(let i = 0; i < 6; i++){
+            color += hex[Math.floor(Math.random() * 16)];
+          }
+          return color;
+        }
+        function changeColor(){
+          intervalId = setInterval(function(){
+            let color = randomColor();
+            document.querySelector('body').style.backgroundColor = color;
+            document.querySelector('input').value = color;
+          }, 1000);
+        }
+        
+        document.querySelector('#start').addEventListener('click', function(){
+          changeColor();
 
-             let colorNm = document.querySelector('#colorName').addEventListener('change', function(){
-                document.querySelector('body').style.backgroundColor = this.value;
-             });
-             
-
-            }
-            else{
-                document.querySelector('#color').style.display = "none";
-                document.querySelector('#hexcode').style.display = "block";
-
-                document.querySelector('#hexButton').addEventListener('click', function(){
-                    let hexCode = document.querySelector('#hexInput').value;
-                    document.querySelector('body').style.backgroundColor = hexCode;
-                })
-            }
-
+        })
+        document.querySelector('#stop').addEventListener('click', function(){
+          clearInterval(intervalId);
+        })
+        document.querySelector('#copy').addEventListener('click', function(){
+            let copyColor = document.querySelector('#colorInput').value; // 
+            navigator.clipboard.writeText(copyColor);
+            document.querySelector('#copy').style.backgroundColor = "green";
         });
-
     </script>
 </body>
-
 </html>
-
-
-
