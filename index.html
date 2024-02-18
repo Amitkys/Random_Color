@@ -58,6 +58,8 @@
         function changeColor(){
           intervalId = setInterval(function(){
             let color = randomColor();
+            // smooth background color
+            document.querySelector('body').style.transition = "background-color ease 0.5s";
             document.querySelector('body').style.backgroundColor = color;
             document.querySelector('input').value = color;
           }, 1000);
