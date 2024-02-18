@@ -6,7 +6,7 @@
  <script src="https://cdn.tailwindcss.com"></script> 
  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Lora|Space Grotesk|Poppins|Karla|Fredoka">
-    <title>Random Color</title>
+    <title>Document</title>
     <style>
         html, body{
             height: 100%;
@@ -21,6 +21,9 @@
             top: 30%;
             left: 50%;
             transform: translateX(-50%);
+        }
+        #stop{
+          display: none;
         }
         
     </style>
@@ -62,6 +65,7 @@
         
         document.querySelector('#start').addEventListener('click', function(){
           changeColor();
+          document.querySelector('#stop').style.display = "inline-block";
 
         })
         document.querySelector('#stop').addEventListener('click', function(){
