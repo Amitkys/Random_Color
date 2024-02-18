@@ -27,6 +27,7 @@
             }
             #color, #hexcode {
                 display: none;
+                
             }
         </style>
  
@@ -77,25 +78,25 @@
             if(val === 'color'){
                 document.querySelector('#color').style.display = "block";
                 document.querySelector('#hexcode').style.display = "none";
-
-             let colorNm = document.querySelector('#colorName').addEventListener('change', function(){
-                document.querySelector('body').style.backgroundColor = this.value;
-             });
-             
-
+        
+                let colorNm = document.querySelector('#colorName').addEventListener('change', function(){
+                    document.querySelector('body').style.transition = "background-color ease 0.5s"; // Set transition property here
+                    document.querySelector('body').style.backgroundColor = this.value;
+                });
+        
             }
             else{
                 document.querySelector('#color').style.display = "none";
                 document.querySelector('#hexcode').style.display = "block";
-
+        
                 document.querySelector('#hexButton').addEventListener('click', function(){
                     let hexCode = document.querySelector('#hexInput').value;
+                    document.querySelector('body').style.transition = "background-color ease 0.5s"; // Set transition property here
                     document.querySelector('body').style.backgroundColor = hexCode;
                 })
             }
-
         });
-
+        
     </script>
 </body>
 
